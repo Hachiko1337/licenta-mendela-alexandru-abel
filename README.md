@@ -51,7 +51,9 @@ py installer.py
 
 ### main.py
 
-After you have completed the steps listed in the subsections **Python**, **Solidity** and **Installing the Necessary Modules** you can run the program by opening a terminal (command prompt) in the folder containing the `main.py` script (refer to subsection **Installing the Necessary Modules** for more information on how to open a terminal directly inside a folder). Once you have your terminal (command prompt) open run the following command to start the program:
+After you have completed the steps listed in the subsections **Python**, **Solidity** and **Installing the Necessary Modules** you can run the program by opening a terminal (command prompt) in the folder containing the `main.py` script (refer to subsection **Installing the Necessary Modules** for more information on how to open a terminal directly inside a folder).
+
+Once you have your terminal (command prompt) open run the following command to start the program:
 
 ```
 py main.py
