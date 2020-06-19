@@ -27,9 +27,7 @@ The 'main.py' script (Python 3) initialises the interface through which the user
 
 Go to the [Python downloads page](https://www.python.org/downloads/), download any 3.x.x Python version, open and install following the on-screen instructions. Make sure to choose the "Customize installation" option.
 
-```diff
-- IMPORTANT: When you reach the "Advanced Options" section of the installer, make sure to check the box titled "Add Python to environment variables."
-```
+***IMPORTANT: When you reach the "Advanced Options" section of the installer, make sure to check the box titled "Add Python to environment variables."***
 
 ### Solidity
 
@@ -50,6 +48,16 @@ Run the following command in the terminal (command prompt):
 ```
 py installer.py
 ```
+
+### main.py
+
+After you have completed the steps listed in the subsections **Python**, **Solidity** and **Installing the Necessary Modules** you can run the program by opening a terminal (command prompt) in the folder containing the 'main.py' script (refer to subsection **Installing the Necessary Modules** for more information on how to open a terminal directly inside a folder). Once you have your terminal (command prompt) open run the following command to start the program:
+
+```
+py main.py
+```
+
+Once the program is running, you can click the "Choose folder" button and pick a folder anywhere on your computer. If the chosen folder contains files with the .sol extension they will be displayed under the button. Check the box next to the files you wish to use and click the "Advise me" button. After this you should see the output in the text box below. If you wish to reset the process and start over, click the "Reset" button.
 
 ### Contact
 
