@@ -6,6 +6,7 @@ import os
 # import database as db
 import solc_compiler as sc 
 import gas_station_service as gss
+import re
 
 def get_minimum_index(list_param):
 	minimum = list_param[0]
@@ -59,7 +60,8 @@ def adviser():
 
 	for i in range(0, len(list_of_file_paths)):
 		if checkbutton_states[i].get():
-			files_in_use.append(list_of_file_paths[i])
+			if list_of_file_paths[i] not in files_in_use:
+				files_in_use.append(list_of_file_paths[i])
 
 
 
@@ -71,12 +73,19 @@ def adviser():
 
 
 	for i in range(0, len(files_in_use)):
+		gwei = float(gss.get_from_gas_price('average')/10 * gas_estimates[i])
 		# output_panel.insert(INSERT, 'File ' + files_in_use[i].split('/')[-1] + ' uses ' + str(gas_estimates[i]) + ' gas.\n')
 		output_panel.insert(INSERT, 'Detailed gas estimation for ' + files_in_use[i].split('/')[-1] + ':\n')
-		output_panel.insert(INSERT, sc.detailed_gas_estimation(files_in_use[i]))
+		for line in sc.detailed_gas_estimation(files_in_use[i]).split('\n'):
+			if ':\t' in line and 'infinite' not in line:
+				function_gas = float(re.findall(r'\d+', line)[0])
+				output_panel.insert(INSERT, line + ' -> ' + str((function_gas/10**8 * gss.get_price_in_dollars(function_gas/10**8)*10)) + ' dollars\n')
+			else:
+				output_panel.insert(INSERT, line + '\n')
 		output_panel.insert(INSERT, '\nA rough estimation of the gas used by file ' +  files_in_use[i].split('/')[-1] + 
 			' is ' + str(gas_estimates[i]) + '. We recommend adding about two to three thousand more units to this value as to account for the possibility of underestimation.')
-		output_panel.insert(INSERT, '\nThis would cost about ' + str((gss.get_from_gas_price('average') * gas_estimates[i])/10) + ' gwei.')
+		output_panel.insert(INSERT, '\nThis would cost about ' + str(gwei) + ' gwei.')
+		output_panel.insert(INSERT, '\nThis translates to about ' + str(round((gwei/10**8 * gss.get_price_in_dollars(gwei/10**8)*10), 4)) + ' dollars.')
 		output_panel.insert(INSERT, '\n\n')
 	# output_panel.insert(INSERT, 'We recommend using the file ' 
 	# 	+ files_in_use[get_minimum_index(gas_estimates)].split('/')[-1] 

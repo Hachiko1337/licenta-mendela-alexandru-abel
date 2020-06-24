@@ -24,6 +24,20 @@ def get_opcodes(path):
 	return opcodes
 
 
+def solc_get_asm(path):
+	result = subprocess.run('solc --asm "' + path + '"', capture_output=True)
+	complicated_text = []
+	text = result.stdout.decode()
+	# print(text)
+	lines_of_text = text.split('\n')
+	for i in range (3, len(lines_of_text)):
+		# if ('construction:' in line) or ('external:' in line):
+		# 	complicated_text.append(line)
+		# if check_for_function(line) or check_for_numbers(line):
+		# 	complicated_text.append(line)
+		complicated_text.append(lines_of_text[i])
+	return complicated_text
+
 def get_gas_estimation(opcodes_list):
 
 	sum = 0
@@ -35,6 +49,8 @@ def get_gas_estimation(opcodes_list):
 			# else:
 			sum = sum + prices[x]
 	return sum
+
+
 
 def check_for_function(string_to_check):
 	# \w+\((\w+\,*)*\)
@@ -71,11 +87,7 @@ def detailed_gas_estimation(path):
 	with open(path, 'r') as file:
 		lines = file.readlines()
 		program_text = lines
-	asm_string_result = subprocess.run('solc --asm "' + path + '"', capture_output=True)
-	asm_string = asm_string_result.stdout.decode()
-	asm_text = []
-	for line in asm_string.split('\n'):
-		asm_text.append(line.rstrip('\r'))
+	asm_text = solc_get_asm(path)
 
 	
 	# print (gas_text)

@@ -57,6 +57,8 @@ def text_formatter(gas_text, program_text, asm_text):
 			copy.append('\tFound loop in function.\n\n')
 		if 'infinite' in line and '):' in line and not check_for_loop(capture_function_body('function ' + line.split('(')[0].lstrip(' ') + '(', program_text)):
 			copy.append('\tFound backjump in function.\n\n')
+		# if re.search(line, r'\: \d+'):
+		# 	copy.append(line.rstrip('\n') + )
 
 	
 	return pretty_printer(copy)
